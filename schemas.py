@@ -41,8 +41,19 @@ class Product(BaseModel):
 # Add your own schemas here:
 # --------------------------------------------------
 
-# Note: The Flames database viewer will automatically:
-# 1. Read these schemas from GET /schema endpoint
-# 2. Use them for document validation when creating/editing
-# 3. Handle all database operations (CRUD) directly
-# 4. You don't need to create any database endpoints!
+class Category(BaseModel):
+    """
+    Categories collection schema
+    Collection name: "category"
+    """
+    name: str = Field(..., description="Category name", min_length=1, max_length=60)
+    description: Optional[str] = Field(None, description="Short description")
+
+class Item(BaseModel):
+    """
+    Items collection schema
+    Collection name: "item"
+    """
+    name: str = Field(..., description="Item name", min_length=1, max_length=100)
+    note: Optional[str] = Field(None, description="Optional note or description")
+    category_id: str = Field(..., description="Related category document id as string")
